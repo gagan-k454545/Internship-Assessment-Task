@@ -1,12 +1,10 @@
 "use client";
 // app/page.js — Home Page (Landing Page)
-// This is the first screen users see.
-// It shows four navigation cards linking to Register, Check In, Check Out, and Dashboard.
+// First screen users see. Shows four navigation cards.
 
 import Link from "next/link";
 
-// Array of cards to display on the home page.
-// Each card has a link, icon, title, description, and color values.
+// Navigation cards — each links to a feature page
 const navCards = [
   {
     href: "/register",
@@ -16,8 +14,8 @@ const navCards = [
     desc: "Register your face once to start tracking your attendance.",
     tag: "SETUP",
     tagClass: "badge-teal",
-    accentColor: "rgba(13, 115, 119, 0.08)",   // Teal tint for card background
-    borderColor: "rgba(13, 115, 119, 0.2)",
+    accentColor: "rgba(108, 99, 255, 0.1)",
+    borderColor: "rgba(108, 99, 255, 0.25)",
   },
   {
     href: "/login",
@@ -27,8 +25,8 @@ const navCards = [
     desc: "Scan your face to mark your arrival and start your work day.",
     tag: "LOGIN",
     tagClass: "badge-green",
-    accentColor: "rgba(20, 160, 133, 0.07)",   // Green tint for check-in card
-    borderColor: "rgba(20, 160, 133, 0.2)",
+    accentColor: "rgba(0, 212, 170, 0.08)",
+    borderColor: "rgba(0, 212, 170, 0.22)",
   },
   {
     href: "/logout",
@@ -38,8 +36,8 @@ const navCards = [
     desc: "Verify your face to log your departure time with GPS.",
     tag: "LOGOUT",
     tagClass: "badge-amber",
-    accentColor: "rgba(224, 123, 57, 0.07)",   // Orange tint for check-out card
-    borderColor: "rgba(224, 123, 57, 0.2)",
+    accentColor: "rgba(255, 107, 107, 0.08)",
+    borderColor: "rgba(255, 107, 107, 0.22)",
   },
   {
     href: "/dashboard",
@@ -49,8 +47,8 @@ const navCards = [
     desc: "View all records, login/logout times, and location data.",
     tag: "DATA",
     tagClass: "badge-teal",
-    accentColor: "rgba(13, 115, 119, 0.06)",
-    borderColor: "rgba(13, 115, 119, 0.18)",
+    accentColor: "rgba(108, 99, 255, 0.08)",
+    borderColor: "rgba(108, 99, 255, 0.2)",
   },
 ];
 
@@ -58,73 +56,70 @@ export default function Home() {
   return (
     <main className="page" style={{ maxWidth: 700 }}>
 
-      {/* ---- Header Section ---- */}
+      {/* Header section */}
       <div className="animate-slide-up" style={{ textAlign: "center", marginBottom: 56 }}>
 
-        {/* Green dot with "System Online" label — shows the app is running */}
+        {/* System Online pill */}
         <div style={{
           display: "inline-flex", alignItems: "center", gap: 8,
-          background: "var(--bg-card)", border: "1px solid var(--border-color)",
-          borderRadius: "var(--radius-full)", padding: "6px 16px", marginBottom: 24,
+          background: "rgba(108,99,255,0.1)",
+          border: "1px solid rgba(108,99,255,0.25)",
+          borderRadius: "var(--radius-full)", padding: "6px 18px", marginBottom: 28,
           backdropFilter: "blur(12px)",
         }}>
-          {/* Pulsing green dot */}
           <div style={{
             width: 7, height: 7, borderRadius: "50%",
             background: "var(--accent-success)",
-            boxShadow: "0 0 8px var(--accent-success)",
+            boxShadow: "0 0 10px var(--accent-success)",
           }} className="animate-pulse-slow" />
-          <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text-secondary)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent-success)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
             System Online
           </span>
         </div>
 
-        {/* Main app name — "Face" in dark + "Attend" in teal-to-green gradient */}
+        {/* Main heading — "Face" plain + "Attend" in indigo-to-teal gradient */}
         <h1 style={{
           fontFamily: "'Outfit', sans-serif",
-          fontSize: "clamp(2.5rem, 6vw, 3.5rem)", // Responsive font size
-          fontWeight: 700,
-          lineHeight: 1.15,
-          marginBottom: 16,
-          letterSpacing: "-0.02em",
+          fontSize: "clamp(2.8rem, 7vw, 4rem)",
+          fontWeight: 800,
+          lineHeight: 1.1,
+          marginBottom: 18,
+          letterSpacing: "-0.03em",
+          color: "var(--text-primary)",
         }}>
           Face
           <span style={{
-            background: "linear-gradient(135deg, #0D7377, #14A085)",  // Teal gradient on "Attend"
+            background: "linear-gradient(135deg, #6C63FF, #00D4AA)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}>Attend</span>
         </h1>
 
-        {/* Short description under the title */}
-        <p style={{ color: "var(--text-secondary)", fontSize: 15, maxWidth: 380, margin: "0 auto" }}>
+        <p style={{ color: "var(--text-secondary)", fontSize: 15, maxWidth: 380, margin: "0 auto", lineHeight: 1.7 }}>
           Smart attendance tracking powered by face recognition and GPS verification.
         </p>
       </div>
 
-      {/* ---- Navigation Cards Grid ---- */}
-      {/* auto-fit means cards stack on mobile and go side-by-side on wide screens */}
+      {/* Navigation Cards Grid */}
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
         gap: 16,
       }}>
-        {/* Loop through the navCards array and render one card per item */}
         {navCards.map((card, i) => (
           <Link href={card.href} key={card.href} style={{ textDecoration: "none" }}>
             <div
               className="card animate-slide-up"
               style={{
-                padding: 24,
-                animationDelay: `${i * 0.08}s`,  // Each card fades in slightly after the previous
+                padding: 26,
+                animationDelay: `${i * 0.08}s`,
                 background: card.accentColor,
                 borderColor: card.borderColor,
                 cursor: "pointer",
               }}
-              // Lift card on hover
               onMouseEnter={e => {
-                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.transform = "translateY(-4px)";
                 e.currentTarget.style.boxShadow = "var(--shadow-soft)";
               }}
               onMouseLeave={e => {
@@ -132,32 +127,32 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = "var(--shadow-card)";
               }}
             >
-              {/* Card top row: emoji icon on left, category badge on right */}
+              {/* Icon + badge row */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
-                <span style={{ fontSize: 28 }}>{card.icon}</span>
+                <span style={{ fontSize: 30 }}>{card.icon}</span>
                 <span className={`badge ${card.tagClass}`}>{card.tag}</span>
               </div>
 
               {/* Card title */}
               <h2 style={{
                 fontFamily: "'Outfit', sans-serif",
-                fontSize: 18, fontWeight: 600,
+                fontSize: 19, fontWeight: 700,
                 color: "var(--text-primary)", marginBottom: 4,
               }}>
                 {card.title}
               </h2>
 
-              {/* Card subtitle in green */}
-              <p style={{ fontSize: 12, color: "var(--accent-secondary)", fontWeight: 500, marginBottom: 10 }}>
+              {/* Subtitle in accent color */}
+              <p style={{ fontSize: 12, color: "var(--accent-secondary)", fontWeight: 600, marginBottom: 10 }}>
                 {card.subtitle}
               </p>
 
-              {/* Card body text */}
-              <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.55 }}>
+              {/* Description */}
+              <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
                 {card.desc}
               </p>
 
-              {/* Arrow hint at the bottom — shows it's clickable */}
+              {/* Arrow hint */}
               <div style={{
                 marginTop: 20, fontSize: 13, color: "var(--text-muted)",
                 display: "flex", alignItems: "center", gap: 6,
@@ -169,11 +164,11 @@ export default function Home() {
         ))}
       </div>
 
-      {/* ---- Footer ---- */}
+      {/* Footer */}
       <p style={{
         marginTop: 56, textAlign: "center",
         fontSize: 12, color: "var(--text-muted)",
-        fontFamily: "'JetBrains Mono', monospace", // Monospace for the tech stack list
+        fontFamily: "'JetBrains Mono', monospace",
       }}>
         Built with Next.js · face-api.js · MongoDB · GPS
       </p>
