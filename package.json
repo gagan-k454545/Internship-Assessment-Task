@@ -1,0 +1,27 @@
+{
+  "name": "smart-face-attendance",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "mongoose": "^8.3.4",
+    "face-api.js": "^0.22.2",
+    "react-webcam": "^7.2.0",
+    "react-hot-toast": "^2.4.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3"
+  }
+}

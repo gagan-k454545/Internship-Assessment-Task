@@ -1,0 +1,336 @@
+/* Import Tailwind's base, component, and utility styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   DESIGN SYSTEM — CSS VARIABLES
+   Change one value here to update the whole app.
+   New color theme: Clean light mode with teal + forest green.
+   ============================================ */
+
+:root {
+  /* --- Page Backgrounds --- */
+  --bg-primary: #F0F7F4;        /* Main page background — soft mint white */
+  --bg-secondary: #E8F3EE;      /* Slightly darker panels */
+  --bg-card: rgba(255, 255, 255, 0.85); /* White card with slight transparency */
+  --bg-input: rgba(0, 0, 0, 0.03);     /* Very light input background */
+
+  /* --- Brand Colors --- */
+  --accent-primary: #0D7377;    /* Teal — main brand color */
+  --accent-secondary: #14A085;  /* Green — secondary actions */
+  --accent-highlight: #E07B39;  /* Warm orange — warnings / check-out */
+  --accent-success: #2D8C5B;    /* Forest green — success states */
+  --accent-error: #C0392B;      /* Red — error states */
+
+  /* --- Text Colors --- */
+  --text-primary: #1A2E2C;      /* Dark teal-black for headings */
+  --text-secondary: #4A7069;    /* Muted teal for body text */
+  --text-muted: #8AADA8;        /* Very muted for hints and labels */
+
+  /* --- Borders --- */
+  --border-color: rgba(13, 115, 119, 0.15);  /* Subtle teal border */
+  --border-focus: rgba(13, 115, 119, 0.5);   /* Stronger teal on focus */
+
+  /* --- Glow and Shadow Effects --- */
+  --hover-glow: rgba(13, 115, 119, 0.15);
+  --shadow-soft: 0 8px 30px rgba(13, 115, 119, 0.15);
+  --shadow-card: 0 4px 20px rgba(13, 115, 119, 0.08);
+
+  /* --- Border Radius --- */
+  --radius: 14px;        /* Large radius for cards */
+  --radius-sm: 8px;      /* Small radius for inputs and badges */
+  --radius-full: 9999px; /* Pill shape for tags */
+
+  /* --- Transition speed for hover effects --- */
+  --transition: all 0.25s ease;
+}
+
+/* ============================================
+   BASE STYLES — applied to every element
+   ============================================ */
+
+/* Make all elements include padding/border inside their width */
+* {
+  box-sizing: border-box;
+}
+
+/* Base page style */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased; /* Sharper text on Mac/iOS */
+  line-height: 1.6;
+}
+
+/* Custom scrollbar — thin and teal-tinted */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+/* ============================================
+   COMPONENT CLASSES
+   Reusable classes that you can put on any element.
+   ============================================ */
+
+@layer components {
+
+  /* --- CARD ---
+     White glass-effect box with a soft shadow.
+     Used as the container for forms and content blocks. */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    backdrop-filter: blur(12px);          /* Frosted glass blur effect */
+    -webkit-backdrop-filter: blur(12px);  /* Safari support */
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+  }
+
+  /* Card lifts slightly on hover */
+  .card:hover {
+    border-color: rgba(13, 115, 119, 0.25);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* --- BUTTONS --- */
+
+  /* Base button — shared styles for all button types */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* Primary teal button — main action */
+  .btn-primary {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 0 20px rgba(13, 115, 119, 0.25);
+  }
+
+  /* Primary button lifts and glows on hover */
+  .btn-primary:hover:not(:disabled) {
+    background: #0A5C60;
+    box-shadow: 0 0 30px rgba(13, 115, 119, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* Outline button — secondary action */
+  .btn-outline {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .btn-outline:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: rgba(13, 115, 119, 0.3);
+  }
+
+  /* Orange/amber button — used for Check Out */
+  .btn-amber {
+    background: rgba(224, 123, 57, 0.1);
+    color: var(--accent-highlight);
+    border: 1px solid rgba(224, 123, 57, 0.25);
+  }
+
+  .btn-amber:hover:not(:disabled) {
+    background: rgba(224, 123, 57, 0.18);
+    box-shadow: 0 0 20px rgba(224, 123, 57, 0.2);
+    transform: translateY(-1px);
+  }
+
+  /* Makes button stretch full width of its container */
+  .btn-full {
+    width: 100%;
+  }
+
+  /* Disabled state — grayed out and not clickable */
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  /* --- FORM INPUTS --- */
+
+  /* Label above each input field */
+  .input-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;       /* ALL CAPS label */
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  /* Text input and email input styling */
+  .input {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: var(--transition);
+    outline: none;
+  }
+
+  /* Placeholder text color */
+  .input::placeholder {
+    color: var(--text-muted);
+  }
+
+  /* Input highlights with teal glow when focused */
+  .input:focus {
+    border-color: var(--border-focus);
+    background: rgba(13, 115, 119, 0.04);
+    box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.1);
+  }
+
+  /* Disabled input — grayed out */
+  .input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* --- STATUS BADGE (small pill/tag) ---
+     Used on cards to show category labels like SETUP, LOGIN */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);   /* Pill shape */
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+
+  /* Teal badge — used for Register and Dashboard */
+  .badge-teal {
+    background: rgba(13, 115, 119, 0.1);
+    color: #0D7377;
+    border-color: rgba(13, 115, 119, 0.25);
+  }
+
+  /* Green badge — used for Check In */
+  .badge-green {
+    background: rgba(20, 160, 133, 0.1);
+    color: #14A085;
+    border-color: rgba(20, 160, 133, 0.2);
+  }
+
+  /* Orange badge — used for Check Out */
+  .badge-amber {
+    background: rgba(224, 123, 57, 0.1);
+    color: #E07B39;
+    border-color: rgba(224, 123, 57, 0.2);
+  }
+
+  /* --- PAGE WRAPPER ---
+     Centers content and adds padding on small and large screens */
+
+  /* Narrow page — for single-card forms like login, register */
+  .page {
+    min-height: 100vh;
+    padding: 48px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Wide page — for the dashboard table */
+  .page-wide {
+    min-height: 100vh;
+    padding: 48px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* --- DIVIDER LINE ---
+     Fades from teal to transparent — decorative separator */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, var(--accent-primary), transparent);
+    margin: 20px 0;
+    opacity: 0.35;
+  }
+
+  /* --- INFO ROW ---
+     Key-value row inside a card (e.g., "Employee — John Doe") */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Remove bottom border from last row */
+  .info-row:last-child {
+    border-bottom: none;
+  }
+
+  /* The label on the left (e.g., "Employee") */
+  .info-row .key {
+    color: var(--text-secondary);
+  }
+
+  /* The value on the right (e.g., "John Doe") */
+  .info-row .value {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: right;
+    max-width: 60%;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   Used to make elements appear smoothly.
+   ============================================ */
+
+/* Simple fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide up from below while fading in */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scanning line moves top to bottom on camera — like a scanner */
+@keyframes scan {
+  0%, 100% { transform: translateY(0%);   opacity: 0.6; }
+  50%       { transform: translateY(100%); opacity: 0.15; }
+}
+
+/* Apply these animations using these class names */
+.animate-fade-in  { animation: fadeIn  0.4s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.4s ease-out forwards; }
+.animate-scan     { animation: scan    2.5s ease-in-out infinite; }
