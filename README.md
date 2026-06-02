@@ -2,7 +2,7 @@
 
 > Internship Assessment — foxwel.ai | Candidate: Gagan
 
-A full-stack MVP attendance system built with **Next.js**, **face-api.js**, **MongoDB Atlas**, and **GPS verification**. No Python. No Firebase. Everything runs in the browser and deploys to Vercel.
+A full-stack MVP attendance system built with **Next.js**, **face-api.js**, **MongoDB Atlas**, and **GPS verification**. No Python. No Firebase. Everything runs in  the browser and deploys to Vercel.
 
 ---
 
